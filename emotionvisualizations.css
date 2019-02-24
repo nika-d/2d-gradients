@@ -1,0 +1,146 @@
+/* TODO Code doubling optimieren
+ TODO check scope für alles */
+
+html, body, p {
+    font-family: sans-serif;
+    font-weight: lighter;
+    background-color: #f8f8f8;
+    color: #444444;
+}
+
+body {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.hr-container{
+    position: relative;
+    padding-bottom: 1em;
+}
+hr {
+    border: 0;
+    border-top: 3px dotted #444444;
+    position: relative;
+    z-index: 0;
+    left: -2px;
+    top: 0;
+}
+.dotted-gradient {
+    background-image: linear-gradient(90deg, transparent,  #f8f8f8);
+    height: 3px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+.chart-container {
+    position: relative;
+    left: 10%;
+    width: 80%;
+    padding: 1em 0 2em 0;
+}
+
+h1 {
+    margin-top: 3em;
+    font-weight: lighter;
+    color: #444444;
+}
+
+.vis-timeline {
+    border: 0
+}
+
+.vis-item.emotion-time-frame {
+    border: none;
+    border-radius: 0;
+    background-color: cadetblue;
+}
+
+.better-chart-container text{
+    fill: currentColor;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.better-chart-container {
+    min-width: 600px;
+    min-height: 125px;
+    font-size: xx-small;
+    position: relative;
+    padding: 0;
+}
+
+.plot-container svg text {
+    fill: #888888;
+}
+
+.plot-container path, .plot-container line {
+    stroke: #888888;
+}
+
+.spie-container{
+
+}
+
+.gradient-div{
+    width: 400px;
+    height: 400px;
+    flex-shrink: 0;
+    background:
+            linear-gradient(45deg, transparent 50%, #FFCD93),
+            linear-gradient(135deg, transparent 50%, #BEE986),
+            linear-gradient(135deg, #DA7DA4 0%, transparent 50%),
+            linear-gradient(45deg, #618DA2 0%, transparent 50%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+}
+
+/*
+.better-upper{
+    background-color: rosybrown;
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-end;
+}
+
+.better-axis-container{
+    min-height: 100px;
+    display: flex;
+    align-items: stretch;
+    background-color: lightblue;
+    height: 100%;
+    width: 6ch;
+}
+
+.better-bar{
+    margin: 0 5ex 0 5ex ;
+    background-color: lemonchiffon;
+    display: flex;
+    flex-grow: 1;
+    min-height: 33px;
+}
+
+*/
+
+.gradient-container {
+    display: flex;
+    align-content: stretch;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.gradient-canvas {
+    flex-grow: 1;
+    position: relative;
+    padding: 0;
+    display: inline;
+}

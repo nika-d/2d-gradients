@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test page for LISA charts</title>
+    <link rel="stylesheet" href="emotionvisualizations.css">
+    <link rel="stylesheet" href="general.css">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+
+<h1> Gradients </h1>
+
+ Fazit: es gibt keine komplett regelmäßige ferbinterpolation im netz. jede Farbinterpolation macht nahe der Extremwerte (wenig von der einen, viel von der anderen Farbe) Schwierigkeiten.
+
+ <div class="flex-horizontal">
+     <div class="flex-horizontal-item plot-container" id="chart1aa"></div>
+     <div class="flex-horizontal-item">
+         <h3>Nested interpolations</h3>
+         <code>
+             let X = d3.scaleLinear()
+             .domain([0, sizeq])
+             .range(['white', leftColor]);
+
+             let Y = d3.scaleLinear()
+             .domain([0, sizeq])
+             .range(['white', rightColor]);
+
+             let colorPixels = pixels.map((p) => {
+             let color = d3.scaleLinear()
+             .domain([-1, 1])
+             .range([X(p.colorCoords.x), Y(p.colorCoords.y)])
+             .interpolate(d3.interpolateRgb);
+
+             let strength = (p.colorCoords.y - p.colorCoords.x) / (sizeq);
+
+             let c = d3.rgb(color(strength));
+         </code>
+     </div>
+ </div>
+ <div class="flex-horizontal">
+     <div class="flex-horizontal-item plot-container" id="chart1a"></div>
+     <div class="flex-horizontal-item">
+         <h3>Polar color coordinates with specified hue circle</h3>
+         <code>
+             let pointScale = d3.scaleLinear().domain([0, GRADIENT_STEP_COUNT]).range([1, -1]);
+
+             let colorAngleScale = d3.scaleLinear()
+             .domain([0, 0.5 * PI, PI, 1.5*PI, 2*PI])
+             .range([POSITIVE_HIGH, NEGATIVE_HIGH, NEGATIVE_LOW, POSITIVE_LOW, POSITIVE_HIGH])
+             .interpolate(d3.interpolateLab);
+
+             let colorDistance = (point) => Math.sqrt(point.x*point.x + point.y*point.y);
+             let colorAngle = (point) =>
+             ( colorDistance(point) === 0 ?
+             0 : ( Math.acos(point.x/colorDistance(point)) * (point.y > 0? 1 : -1) + 1.75 * PI ) % (2 * PI));
+             let pointColorScale = (point) => {
+             let scale = d3.scaleLinear()
+             .domain([0, s2])
+             .range(['#ffffff', colorAngleScale(colorAngle(point))])
+             .interpolate(d3.interpolateLab);
+             return scale(colorDistance(point));
+             };
+
+             let pixels = Array.from(Array(GRADIENT_STEP_COUNT),
+             (o, x) => Array.from(Array(GRADIENT_STEP_COUNT),
+             (oo, y) => {
+             let p = {x: -pointScale(x), y: pointScale(y)};
+             let color = d3.rgb(pointColorScale(p));
+             return color;
+             } ));
+         </code>
+     </div>
+ </div>
+ <div class="flex-horizontal">
+     <div id="chart1b"></div>
+     <div class="flex-horizontal-item">
+         <h3>Simply CSS</h3>
+         <code>
+             background:
+             linear-gradient(45deg, transparent 50%, #FFCD93),
+             linear-gradient(135deg, transparent 50%, #BEE986),
+             linear-gradient(135deg, #DA7DA4 0%, transparent 50%),
+             linear-gradient(45deg, #618DA2 0%, transparent 50%);
+             background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+         </code>
+     </div>
+ </div>
+
+<script src="index.js" type="module"></script>
+
+</body>
+</html>

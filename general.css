@@ -1,0 +1,7 @@
+.flex-horizontal{
+    display: flex;
+}
+
+.flex-horizontal-item{
+    flex-grow: 1;
+}
